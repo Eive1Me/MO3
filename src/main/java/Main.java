@@ -10,12 +10,14 @@ public class Main {
         System.out.println("Изначальная система неравенств:");
         System.out.println(inequalitySystem);
 
+        // -1 - найти минимум, +1 - найти максимум
+        Equation targetFunction = new Equation(new ArrayList<>(Arrays.asList(+2.0, +2.0)), +1);
+        System.out.println(targetFunction.toStringForFunction());
+
         EquationSystem equationSystem = inequalitySystem.toEquationSystem();
         System.out.println("Она же, но в уравнениях:");
         System.out.println(equationSystem);
 
-        // -1 - найти минимум, +1 - найти максимум
-        Equation targetFunction = new Equation(new ArrayList<>(Arrays.asList(+2.0, +2.0)), +1);
         GomoryTable gomoryTable = new GomoryTable(equationSystem, targetFunction);
         System.out.println("Перевели в симплекс-таблицу:");
         System.out.println(gomoryTable);

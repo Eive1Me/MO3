@@ -56,4 +56,36 @@ public class Equation {
 
         return answer;
     }
+
+    public String toStringForFunction() {
+        System.out.println("Функция F:");
+        String answer = "";
+        for (int i = 0; i < variables.size(); ++i) {
+            int variableInt = ((Double) (variables.get(i) * 100)).intValue();
+
+            if (variables.get(i) < 0) {
+                variableInt = -variableInt;
+                if (i > 0) {
+                    answer += " - ";
+                } else {
+                    answer += "- ";
+                }
+            } else {
+                if (i > 0) {
+                    answer += " + ";
+                }
+            }
+            answer += ((double) variableInt) / 100;
+            answer += " x" + (i + 1);
+        }
+        answer += " -> ";
+        if (result < 0) {
+            answer += " min ";
+        } else {
+            answer += " max ";
+        }
+        answer += "\n";
+
+        return answer;
+    }
 }
