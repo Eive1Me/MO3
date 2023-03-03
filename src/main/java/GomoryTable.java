@@ -175,10 +175,11 @@ public class GomoryTable {
     public void createNewRestriction(String baseRow) {
         List<String> columnNames = getColumnNames();
         table.put(new GomoryNode("b", "x0"), -fractionalPart(table.get(new GomoryNode("b", baseRow))));
+        //Для строки на которую накладываем ограничение создаем строку из дробных частей
         for (String columnName : columnNames) {
             table.put(new GomoryNode(columnName, "x0"), -fractionalPart(table.get(new GomoryNode(columnName, baseRow))));
         }
-
+        //создаем столбик с 0 везде кроме новой строки, там 1
         String newXNumber = "x" + (getColumnNames().size() + 1);
         table.put(new GomoryNode(newXNumber, "F"), 0.0);
         List<String> rowNames = getRowNames();

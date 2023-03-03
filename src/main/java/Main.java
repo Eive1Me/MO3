@@ -28,14 +28,14 @@ public class Main {
         // Приводим решение к целочисленному
         while (!isIntegerSolution(gomoryTable, targetFunction.getNumberOfVariables())) {
             System.out.println("Нашли оптимальное нецелочисленное решение.");
-
+            //ищем максимальную дробную часть
             String maxFractionalPartRow = gomoryTable.maxFractionalPartRow(targetFunction.getNumberOfVariables());
             double maxFractionalPart = gomoryTable.fractionalPart(gomoryTable.get("b", maxFractionalPartRow));
             System.out.println("Максимальная дробная часть у: " + maxFractionalPartRow);
             System.out.println("И она равна: " + maxFractionalPart);
             System.out.println();
             System.out.println("Для " + maxFractionalPartRow + " введём дополнительное ограничение");
-
+            //новое ограничение для строки с максимальной дробной частью
             gomoryTable.createNewRestriction(maxFractionalPartRow);
             System.out.println("Теперь таблица имеет вид:");
             System.out.println(gomoryTable);
@@ -66,13 +66,14 @@ public class Main {
     }
 
     private static void getOptimal(GomoryTable gomoryTable) {
-
+        //ищем минимальный свободный
         String minXRowForBColumn = gomoryTable.minB();
         int iteration = 0;
+        //пока среди свободных есть отрицательные - то это наша разрешающая строка
         while (gomoryTable.get("b", minXRowForBColumn) < 0.0) {
             System.out.println("Минимальный элемент среди свободных членов: " + gomoryTable.get("b", minXRowForBColumn));
             System.out.println("Среди свободных членов есть отрицательные. Нужно перейти к допустимому решению");
-
+            //ищем разрешающий столбец
             String minXColumnForMinBRow = gomoryTable.minInRow(minXRowForBColumn);
             if (gomoryTable.get(minXColumnForMinBRow, minXRowForBColumn) >= 0.0) {
                 System.out.println("Задачу решить нельзя");
@@ -100,12 +101,12 @@ public class Main {
         while (gomoryTable.get(gomoryTable.minInRow("F"), "F") < 0.0) {
             System.out.println("У целевой функции есть отрицательные элементы. Избавимся. Итерация " + iteration);
 
-            // Разрешающий столбец
+            // Разрешающий столбец - тот где отрицательный элемент
             String columnWithMinF = gomoryTable.minInRow("F");
             String rowPair = null;
             Double minDiv = null;
 
-            // Вычисляем разрешающую строку
+            // Вычисляем разрешающую строку - ту где b строки / элемент столбца будет минимальным
             for (String rowName : gomoryTable.getRowNames()) {
                 if (gomoryTable.get(columnWithMinF, rowName) > 0.0) {
                     if (rowPair == null) {
