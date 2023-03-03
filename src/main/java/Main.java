@@ -6,10 +6,7 @@ import java.util.Arrays;
 public class Main {
     public static void main(String[] args) {
         InequalitySystem inequalitySystem = new InequalitySystem();
-        inequalitySystem.add(new Inequality(new ArrayList<>(Arrays.asList(+3.0, +3.0)), Operator.GREATER_OR_EQUAL, 4));
-        inequalitySystem.add(new Inequality(new ArrayList<>(Arrays.asList(+2.0, +4.0)), Operator.LESS_OR_EQUAL, 5));
-        inequalitySystem.add(new Inequality(new ArrayList<>(Arrays.asList(+1.0, +3.0)), Operator.LESS_OR_EQUAL, 6));
-        inequalitySystem.add(new Inequality(new ArrayList<>(Arrays.asList(+0.0, +1.0)), Operator.LESS_OR_EQUAL, 5));
+        Utils.addData(inequalitySystem);
         System.out.println("Изначальная система неравенств:");
         System.out.println(inequalitySystem);
 
@@ -44,7 +41,6 @@ public class Main {
 
             System.out.println("Сделаем решение допустимым:");
             getOptimal(gomoryTable);
-            System.out.println(gomoryTable);
             System.out.println();
         }
 
@@ -80,8 +76,8 @@ public class Main {
                 System.out.println("Задачу решить нельзя");
                 System.exit(0);
             }
-            System.out.println("Ведущая строка: " + minXRowForBColumn);
             System.out.println("Ведущий столбец: " + minXColumnForMinBRow);
+            System.out.println("Ведущая строка: " + minXRowForBColumn);
             System.out.println();
 
             ++iteration;
@@ -130,6 +126,7 @@ public class Main {
             System.out.println("Разрешающая строка: " + rowPair);
 
             gomoryTable.recalc(columnWithMinF, rowPair);
+            System.out.println("\n" + gomoryTable);
         }
     }
 

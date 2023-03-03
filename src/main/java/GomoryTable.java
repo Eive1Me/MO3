@@ -6,7 +6,7 @@ import java.util.*;
 public class GomoryTable {
     private Map<GomoryNode, Double> table;
 
-    // Если нужно найти минимум, то уравнение =-1. Максимим - 1.
+    // Если нужно найти минимум, то уравнение =-1. Максимум - 1.
     public GomoryTable(EquationSystem equationSystem, Equation targetFunction) {
         createTable(equationSystem.getEquation(0).getNumberOfVariables() + 1,
                 equationSystem.getNumberOfEquation() + 1);
@@ -99,7 +99,7 @@ public class GomoryTable {
                 if (answer == null) {
                     min = table.get(gomoryNode);
                     answer = gomoryNode.getColumnName();
-                } else if (min > table.get(gomoryNode)) {
+                } else if (min >= table.get(gomoryNode)) {
                     min = table.get(gomoryNode);
                     answer = gomoryNode.getColumnName();
                 }
